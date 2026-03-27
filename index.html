@@ -22716,6 +22716,22 @@ This typically indicates that your device does not have a healthy Internet conne
       document.body.removeChild(link);
       showNotification("Manifest Exported (UTF-8)", "success");
     };
+    const handleShare = () => {
+      const shareUrl = `${window.location.origin}${window.location.pathname}?appId=${activeAppId}`;
+      if (navigator.share) {
+        navigator.share({
+          title: "Banquet Seating Plan",
+          text: "Collaborate on this event seating arrangement",
+          url: shareUrl
+        }).catch(() => {});
+      } else {
+        navigator.clipboard.writeText(shareUrl).then(() => {
+          showNotification("Share link copied to clipboard!", "success");
+        }).catch(() => {
+          showNotification("Copy to clipboard failed", "error");
+        });
+      }
+    };
     const handleDownloadZip = () => __async(void 0, null, function* () {
       setIsSaving(true);
       try {
@@ -22818,6 +22834,14 @@ This typically indicates that your device does not have a healthy Internet conne
       },
       /* @__PURE__ */ import_react3.default.createElement(FileArchive, { size: 14 }),
       " Save Project"
+    ), /* @__PURE__ */ import_react3.default.createElement(
+      "button",
+      {
+        onClick: handleShare,
+        className: "py-2.5 bg-purple-600 text-white text-[10px] font-bold uppercase rounded-lg flex items-center justify-center gap-2 hover:bg-purple-700 transition-colors shadow-sm"
+      },
+      /* @__PURE__ */ import_react3.default.createElement(Link2, { size: 14 }),
+      " Share"
     ))), showAddForm && /* @__PURE__ */ import_react3.default.createElement("div", { className: "p-5 border-b border-slate-100 bg-blue-50/50 animate-in slide-in-from-top-2" }, /* @__PURE__ */ import_react3.default.createElement("form", { onSubmit: handleAddGuest }, /* @__PURE__ */ import_react3.default.createElement(
       "input",
       {

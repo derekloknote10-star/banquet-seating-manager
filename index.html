@@ -22419,11 +22419,8 @@ This typically indicates that your device does not have a healthy Internet conne
     (0, import_react3.useEffect)(() => {
       const initAuth = () => __async(void 0, null, function* () {
         try {
-          if (typeof __initial_auth_token !== "undefined" && __initial_auth_token) {
-            yield signInWithCustomToken(auth, __initial_auth_token);
-          } else {
-            yield signInAnonymously(auth);
-          }
+          // Skip custom token for deployed version - use anonymous auth directly
+          yield signInAnonymously(auth);
         } catch (err) {
           setConnectionStatus("offline");
         }

@@ -22432,6 +22432,12 @@ This typically indicates that your device does not have a healthy Internet conne
       const unsubscribe = onAuthStateChanged(auth, setUser);
       return () => unsubscribe();
     }, []);
+    // Initialize empty tables immediately on app load
+    (0, import_react3.useEffect)(() => {
+      if (tables.length === 0) {
+        initializeEmptyLayout();
+      }
+    }, []);
     (0, import_react3.useEffect)(() => {
       if (!user)
         return;
